@@ -37,16 +37,16 @@ public class CreatureController {
     @GetMapping
     public String listCreature(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         // Recupera il custode in base all'email dell'utente loggato
-        User custode = userService.findByUser(userDetails.getUsername());
+        User custode = userService.findByUsername(userDetails.getUsername());
         List<Creature> creatures = creatureService.getAllCreatures(custode);
-        model.addAttribute("creatures", creatures);
+        model.addAttribute("creature", creatures);
         return "creature";
     }
 
     @PostMapping("/add/{id}")
     public ResponseEntity<String> addCreature(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
         // Recupera il custode in base all'email dell'utente loggato
-        User custode = userService.findByUser(userDetails.getUsername());
+        User custode = userService.findByUsername(userDetails.getUsername());
 
         if (custode == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utente non autorizzato");
@@ -68,7 +68,7 @@ public class CreatureController {
     public ResponseEntity<String> updateCreature(@AuthenticationPrincipal UserDetails userDetails,
             @PathVariable Long id, @RequestBody Creature creature) {
         // Recupera il custode in base all'email dell'utente loggato
-        User custode = userService.findByUser(userDetails.getUsername());
+        User custode = userService.findByUsername(userDetails.getUsername());
 
         if (custode == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utente non autorizzato");
@@ -97,7 +97,7 @@ public class CreatureController {
     public ResponseEntity<String> deleteCreature(@AuthenticationPrincipal UserDetails userDetails,
             @PathVariable Long id) {
         // Recupera il custode in base all'email dell'utente loggato
-        User custode = userService.findByUser(userDetails.getUsername());
+        User custode = userService.findByUsername(userDetails.getUsername());
 
         if (custode == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utente non autorizzato");
@@ -130,7 +130,7 @@ public class CreatureController {
             @RequestParam int dangerLevel) {
 
         // Recupera il custode autenticato
-        User custode = userService.findByUser(userDetails.getUsername());
+        User custode = userService.findByUsername(userDetails.getUsername());
 
         if (custode == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utente non autorizzato");
