@@ -1,6 +1,6 @@
 package com.example.fanatasia.models.enums;
 
 public enum Role {
-    CUSTODE, ADMIN
+    ROLE_CUSTODE, ROLE_ADMIN
    }
    
