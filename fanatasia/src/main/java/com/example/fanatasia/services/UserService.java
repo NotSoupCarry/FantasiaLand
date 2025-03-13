@@ -1,5 +1,7 @@
 package com.example.fanatasia.services;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
@@ -10,12 +12,11 @@ import com.example.fanatasia.models.enums.Role;
 import com.example.fanatasia.repositoryes.UserRepository;
 
 @Service
-@RequiredArgsConstructor // Genera un costruttore per i campi finali
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
 
     public User register(User user) {
         if (user.getRole() == null || user.getRole().name() == null) {
@@ -27,17 +28,14 @@ public class UserService {
 
     public User findByUser(String username) {
         return userRepository.findByUsername(username);
-      
-       public User findCustodeById(Long id) {
+    }
+
+    public User findCustodeById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Custode non trovata con id: " + id));
     }
 
-    /**
-     * Restituisce la lista delle creature disponibili.
-     * 
-     * @return lista delle creature
-     */
     public List<User> findAllCustodi() {
-        return userRepository.findByRole(Role.CUSTODE);
+        return userRepository.findByRole(Role.ROLE_CUSTODE);
     }
+
 }
