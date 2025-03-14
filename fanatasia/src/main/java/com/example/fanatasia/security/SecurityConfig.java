@@ -33,7 +33,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
@@ -76,7 +76,18 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/auth/login") // Pagina personalizzata di login
                         .loginProcessingUrl("/auth/login") // URL a cui il form invia i dati
-                        .defaultSuccessUrl("/creature", true) // Redirect in caso di login avvenuto con successo
+                        .successHandler((request, response, authentication) -> {
+                            // Controlliamo il ruolo dell'utente
+                            String redirectUrl = "/creature"; // Redirect di default per utenti normali
+                            if (authentication.getAuthorities().stream()
+                                    .anyMatch(
+                                            grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+                                redirectUrl = "/admin/creature"; // Redirect per admin
+                            }
+
+                            // Eseguiamo il redirect
+                            response.sendRedirect(redirectUrl);
+                        }) // Gestore di successo personalizzato per il login
                         .permitAll())
                 // Configuriamo il logout
                 .logout(logout -> logout
@@ -88,4 +99,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

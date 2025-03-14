@@ -8,6 +8,7 @@
 <body>
     <h1>Le Tue Creature</h1>
 
+    <!-- Tabella delle Creature -->
     <table border="1">
         <thead>
             <tr>
@@ -23,19 +24,29 @@
                 <td th:text="${creatura.species}"></td>
                 <td th:text="${creatura.dangerLevel}"></td>
                 <td>
+                    <!-- Form per aggiornare il livello di pericolo della creatura -->
                     <form method="post" th:action="@{/creature/updateDangerLevel/{id}(id=${creatura.id})}">
                         <input type="hidden" name="_method" value="patch" />
-
                         <input type="hidden" name="id" th:value="${creatura.id}">
                         <label>Nuovo Livello: <input type="number" name="dangerLevel" required></label>
                         <button type="submit">Aggiorna</button>
                     </form>
 
+                    <!-- Form per eliminare una creatura -->
                     <form method="post" th:action="@{/creature/delete/{id}(id=${creatura.id})}">
                         <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="id" th:value="${creatura.id}">
-                        <button type="submit"
-                            onclick="return confirm('Sei sicuro di voler eliminare questa creatura?')">Elimina</button>
+                        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questa creatura?')">Elimina</button>
+                    </form>
+
+                    <!-- Form per aggiornare tutte le informazioni della creatura (Nome, Specie, Pericolo) -->
+                    <form method="post" th:action="@{/creature/update/{id}(id=${creatura.id})}">
+                        <input type="hidden" name="_method" value="PUT" />
+                        <input type="hidden" name="id" th:value="${creatura.id}">
+                        <label>Nome: <input type="text" name="name" th:value="${creatura.name}" required></label><br>
+                        <label>Specie: <input type="text" name="species" th:value="${creatura.species}" required></label><br>
+                        <label>Livello di Pericolo: <input type="number" name="dangerLevel" th:value="${creatura.dangerLevel}" required></label><br>
+                        <button type="submit">Aggiorna Creatura</button>
                     </form>
                 </td>
             </tr>
