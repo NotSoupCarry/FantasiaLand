@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Assegnazione Creatura</title>
-  </head>
-  <body>
-    <h1>Assegna Creatura a Custode</h1>
-    <form th:action="@{/admin/assegnazione}" method="post">
-      <div>
-        <label>ID Creatura:</label>
-        <input type="number" name="idCreatura" required />
-      </div>
-      <div>
-        <label>ID Custode:</label>
-        <input type="number" name="idCustode" required />
-      </div>
-      <button type="submit">Assegna</button>
+<head>
+    <title>Assegnazione Custode</title>
+</head>
+<body>
+    <h1>Assegna un Custode a una Creatura</h1>
+    
+    <form method="post" action="/admin/assegnazione">
+        <label>Creatura:
+            <select name="idCreatura">
+                <option th:each="creatura : ${creature}" th:value="${creatura.id}" th:text="${creatura.name}"></option>
+            </select>
+        </label>
+        
+        <label>Custode:
+            <select name="idCustode">
+                <option th:each="custode : ${custodi}" th:value="${custode.id}" th:text="${custode.username}"></option>
+            </select>
+        </label>
+        
+        <button type="submit">Assegna</button>
     </form>
-
-    <div th:if="${message}" style="color: green" th:text="${message}"></div>
-    <div th:if="${error}" style="color: red" th:text="${error}"></div>
-  </body>
+    
+    <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+</body>
 </html>

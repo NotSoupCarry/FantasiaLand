@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Gestione Creature - Admin</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Gestione Creature</h1>
+
+    <!-- Messaggi di successo o errore -->
+    <div th:if="${message}" style="color: green;">[[${message}]]</div>
+    <div th:if="${error}" style="color: red;">[[${error}]]</div>
+
+    <!-- Tabella delle Creature -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Specie</th>
+                <th>Livello di Pericolo</th>
+                <th>Custode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="creatura : ${creature}">
+                <td th:text="${creatura.name}"></td>
+                <td th:text="${creatura.species}"></td>
+                <td th:text="${creatura.dangerLevel}"></td>
+                <td th:text="${creatura.custode != null ? creatura.custode.username : 'Nessun Custode'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Aggiungi Nuova Creatura</h2>
+
+    <!-- Form per creare una nuova creatura -->
+    <form method="post" action="/admin/creazione">
+        <label>Nome: <input type="text" name="name" required></label><br>
+        <label>Specie: <input type="text" name="species" required></label><br>
+        <label>Livello di Pericolo: <input type="number" name="dangerLevel" required></label><br>
+        <button type="submit">Aggiungi Creatura</button>
+    </form>
+
+    <h2>Assegna Custode a una Creatura</h2>
+
+    <form method="put" th:action="@{/admin/assegnazione}">
+        <label>Seleziona Creatura:
+            <select name="idCreatura" required>
+                <option th:each="creatura : ${creature}" th:value="${creatura.id}" th:text="${creatura.name}"></option>
+            </select>
+        </label>
+        <br>
+        <label>Seleziona Custode:
+            <input type="number" name="idCustode" placeholder="ID Custode" required>
+        </label>
+        <br>
+        <button type="submit">Assegna Custode</button>
+    </form>
+
+
+</body>
+
+</html>

@@ -64,7 +64,7 @@ public class CreatureController {
         return ResponseEntity.ok("Creatura aggiunta con successo");
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateCreature(@AuthenticationPrincipal UserDetails userDetails,
             @PathVariable Long id, @RequestBody Creature creature) {
         // Recupera il custode in base all'email dell'utente loggato
@@ -75,6 +75,7 @@ public class CreatureController {
         }
 
         // Recupera la creatura da aggiornare
+        
         Optional<Creature> creaturePippo = creatureService.getCreatureById(id);
         Creature creatureToUpdate = creaturePippo.get();
 

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Custodi</title>
-  </head>
-  <body>
+<head>
+    <title>Lista Custodi</title>
+</head>
+<body>
     <h1>Lista dei Custodi</h1>
+    
     <ul>
-      <li th:each="custode : ${custodi}">
-        <span th:text="${custode.username}"></span>
-      </li>
+        <li th:each="custode : ${custodi}" th:text="${custode.username}"></li>
     </ul>
-  </body>
+</body>
 </html>

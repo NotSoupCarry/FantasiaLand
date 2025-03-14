@@ -23,6 +23,7 @@ public class CreatureService {
         return creatureRepository.findByCustode(custode);
     }
 
+    @Transactional
     public Creature addCreature(Creature creature) {
         return creatureRepository.save(creature);
     }
@@ -31,6 +32,7 @@ public class CreatureService {
         return creatureRepository.findById(id);
     }
 
+    @Transactional
     public void deleteCreature(Long id) {
         creatureRepository.findById(id).ifPresentOrElse(
                 creatureRepository::delete,

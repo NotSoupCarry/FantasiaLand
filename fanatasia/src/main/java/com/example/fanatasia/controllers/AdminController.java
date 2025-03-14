@@ -28,7 +28,7 @@ public class AdminController {
     @GetMapping("/creature")
     public String showAllCreature(Model model) {
         model.addAttribute("creature", creatureService.findAllCreature());
-        return "creature";
+        return "creatureAdmin";
     }
 
     // Metodo per mostrare tutti i custodi
@@ -63,7 +63,7 @@ public class AdminController {
             model.addAttribute("error", e.getMessage());
         }
 
-        return "assegnazione";
+        return "redirect:/creature";
     }
 
     // Metodo per creare una nuova creatura

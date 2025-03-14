@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Creature</title>
-  </head>
-  <body>
-    <h1>Lista delle Creature</h1>
-    <ul>
-      <li th:each="creatura : ${creature}">
-        <span th:text="${creatura.name}"></span>
-        <span th:text="${creatura.species}"></span>
-        <span th:text="${creatura.custode.username}"></span>
 
-      </li>
-    </ul>
-  </body>
+<head>
+    <title>Le Mie Creature</title>
+</head>
+
+<body>
+    <h1>Le Tue Creature</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Specie</th>
+                <th>Livello di Pericolo</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="creatura : ${creature}">
+                <td th:text="${creatura.name}"></td>
+                <td th:text="${creatura.species}"></td>
+                <td th:text="${creatura.dangerLevel}"></td>
+                <td>
+                    <form method="patch" th:action="@{/creature/updateDangerLevel/{id}(id=${creatura.id})}">
+                        <input type="hidden" name="id" th:value="${creatura.id}">
+                        <label>Nuovo Livello: <input type="number" name="dangerLevel" required></label>
+                        <button type="submit">Aggiorna</button>
+                    </form>
+
+                    <form method="delete" th:action="@{/creature/delete/{id}(id=${creatura.id})}">
+                        <input type="hidden" name="id" th:value="${creatura.id}">
+                        <button type="submit"
+                            onclick="return confirm('Sei sicuro di voler eliminare questa creatura?')">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>
