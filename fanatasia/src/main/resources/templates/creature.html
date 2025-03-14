@@ -23,13 +23,16 @@
                 <td th:text="${creatura.species}"></td>
                 <td th:text="${creatura.dangerLevel}"></td>
                 <td>
-                    <form method="patch" th:action="@{/creature/updateDangerLevel/{id}(id=${creatura.id})}">
+                    <form method="post" th:action="@{/creature/updateDangerLevel/{id}(id=${creatura.id})}">
+                        <input type="hidden" name="_method" value="patch" />
+
                         <input type="hidden" name="id" th:value="${creatura.id}">
                         <label>Nuovo Livello: <input type="number" name="dangerLevel" required></label>
                         <button type="submit">Aggiorna</button>
                     </form>
 
-                    <form method="delete" th:action="@{/creature/delete/{id}(id=${creatura.id})}">
+                    <form method="post" th:action="@{/creature/delete/{id}(id=${creatura.id})}">
+                        <input type="hidden" name="_method" value="delete" />
                         <input type="hidden" name="id" th:value="${creatura.id}">
                         <button type="submit"
                             onclick="return confirm('Sei sicuro di voler eliminare questa creatura?')">Elimina</button>

@@ -7,7 +7,7 @@
     <h1>Lista dei Custodi</h1>
     
     <ul>
-        <li th:each="custode : ${custodi}" th:text="${custode.username}"></li>
+        <li th:each="custode : ${custodi}" th:text="|ID: ${custode.id} - Username: ${custode.username}|"></li>
     </ul>
 </body>
 </html>

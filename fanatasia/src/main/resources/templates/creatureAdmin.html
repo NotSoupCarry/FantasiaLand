@@ -45,7 +45,8 @@
 
     <h2>Assegna Custode a una Creatura</h2>
 
-    <form method="put" th:action="@{/admin/assegnazione}">
+    <form th:method="post" th:action="@{/admin/assegnazione}">
+        <input type="hidden" name="_method" value="PUT" />
         <label>Seleziona Creatura:
             <select name="idCreatura" required>
                 <option th:each="creatura : ${creature}" th:value="${creatura.id}" th:text="${creatura.name}"></option>
